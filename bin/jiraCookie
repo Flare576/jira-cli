@@ -1,0 +1,41 @@
+#!/bin/sh # START Boilerplate - see https://github.com/Flare576/scripts/tree/main/js
+":" //;NODE_PATH=$(npm -g root) exec node -- "$0" "$@"
+const t=require("module"),e=t.prototype.require;t.prototype.require=function(n){const{execSync:r,spawnSync:s}=e("child_process");var c="--fsl";try{return e.apply(this,arguments)}catch(t){console.log(`Installing ${n}`);const{argv:i,exit:a,cwd:p}=process;r(`npm -g install ${n}`,{encoding:"utf8"});var o=i.length;2<o&&i[o-1]===c&&a(42),i.shift();var l=i.shift();i.push(c);let e=null;for(;null===e||42===e;)e=s(l,i,{cwd:p(),detached:!0,stdio:"inherit"}),e=e.status;a()}}; // END Boilerplate
+
+const version = '0.0.2'
+const usage = `Takes the cookies from a working xhr call in browser and sets up hosted Jira instances.
+BE SURE TO WRAP THE COOKIE IN QUOTES!`;
+const argv = require('yargs')
+  .usage(`$0 "<cookie>" # ${usage}`)
+  .alias('help', 'h')
+  .example( 'jiraCookie "atlassian.xsrf.token=blah; JSESSIONID=blah; SESSIONCOOKIE=SessionCookie; LOGOUTCOOKIE=blah; SAMLCOOKIE=blah"')
+  .argv;
+const fs = require('fs').promises;
+const HOME = require('os').homedir();
+
+(async () => {
+  const cookiesFile = `${HOME}/.jira.d/cookies.js`;
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  let newCookies = argv._[0]
+    .split(';')
+    .map(item => item.trim())
+    .map(keyval => {
+      const cookie = keyval.split('=');
+      return {
+        Name: cookie[0],
+        Value: cookie[1].replace(/"/g,''),
+        Domain:process.env.JIRA_S_ENDPOINT,
+        Expires: tomorrow.toISOString(),
+        HostOnly: true,
+        HttpOnly: false,
+        Path: '/',
+        Secure: false,
+        Raw: keyval,
+      };
+    });
+  const finalCookies = JSON.stringify(newCookies)
+  await fs.writeFile(cookiesFile, finalCookies);
+})();
+
+// vim: ft=javascript
