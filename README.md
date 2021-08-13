@@ -1,4 +1,4 @@
-# jiraCookie
+# jiracookie
 
 Allows you to use hosted (vs. Cloud) Jira instances with [go-jira](https://github.com/go-jira/jira).
 
@@ -10,7 +10,7 @@ Access Tokens that Atlassian generally recommends for Jira.
 ## Installation
 
 ```
-  brew install flare576/scripts/jiraCookie
+  brew install flare576/scripts/jiracookie
 ```
 
 ## Usage
@@ -20,10 +20,10 @@ tools open to the **Network** tab. Look for an XHR call (you can use the filters
 `resources`, and then scroll to the Request Headers. Right-click the `Cookie` entry and choose
 "Copy".
 
-When you call the `jiraCookie` command, be sure to wrap the entire value in quotes:
+When you call the `jiracookie` command, be sure to wrap the entire value in quotes:
 
 ```
-jiraCookie "Cookie: _ga=GA1.2.GA1.2.xxx.xxx; AWSALB=xxxxxxxx/xxxxxxx/xxxxxx/xxxxxx+xxxxxxx; AWSALBCORS=xxxxxxx/xxxxxxx/xxxxxxx/xxxxxxx+xxxxxxx; atlassian.xsrf.token=xxxx-xxxx-xxxx-xxxx; JSESSIONID=xxxx"
+jiracookie "Cookie: _ga=GA1.2.GA1.2.xxx.xxx; AWSALB=xxxxxxxx/xxxxxxx/xxxxxx/xxxxxx+xxxxxxx; AWSALBCORS=xxxxxxx/xxxxxxx/xxxxxxx/xxxxxxx+xxxxxxx; atlassian.xsrf.token=xxxx-xxxx-xxxx-xxxx; JSESSIONID=xxxx"
 ```
 
 If there are other values in the cookie, don't worry; The script's goal is to allow `go-jira` to
