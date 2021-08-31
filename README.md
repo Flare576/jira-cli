@@ -1,16 +1,16 @@
-# jiracookie
+# jira-cli
 
-Allows you to use hosted (vs. Cloud) Jira instances with [go-jira](https://github.com/go-jira/jira).
+Custom commands and tools for using cloud or hosted Jira instances with [go-jira](https://github.com/go-jira/jira).
 
 ## WARNING
 
-These cookies are, by design, short lived. You'll need to refresh them frequently, unlike Personal
-Access Tokens that Atlassian generally recommends for Jira.
+For hosted Jira instances, the cookies are, by design, short lived. You'll need to refresh them
+frequently, unlike Personal Access Tokens that Atlassian generally recommends for Jira.
 
 ## Installation
 
 ```
-  brew install flare576/scripts/jiracookie
+  brew install flare576/scripts/jira-cli
 ```
 
 ## Usage

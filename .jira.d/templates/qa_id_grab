@@ -1,0 +1,7 @@
+{{/* qa_id_grab template */ -}}
+fields:
+  customfield_19359:
+    name: {{ env.JIRA_USER }}
+transition:
+  id: 171
+  name: In Test

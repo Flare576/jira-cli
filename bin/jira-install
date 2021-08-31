@@ -1,0 +1,11 @@
+#!/bin/sh
+jirad="$(dirname "$(realpath "$0")")/../.jira.d"
+if [ "$1" == "delete" ]; then
+  rm -rf "$HOME/.jira.d"
+  mv "$HOME/.jira.d.bkp" "$HOME/.jira.d" &> /dev/null
+else
+  echo "Linking .jira.d from your home dir"
+  mv "$HOME/.jira.d" "$HOME/.jira.d.bkp" &> /dev/null
+  rm -rf "$HOME/.jira.d" &> /dev/null
+  ln -sf "$jirad" "$HOME/.jira.d"
+fi
