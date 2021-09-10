@@ -1,7 +1,7 @@
 #!/bin/sh
 # Create a ~/.jira.d folder, link the specific files from flare576/scripts/jira-cli
 # This allows other files (such as cookies.js and .jira.issue) to persist through upgrades
-version=2
+version=3
 usage="$(basename $0)
 Run to create a link between ~/.jira.d and the templates/config from scripts/flare576/jira-cli. Only neds to be run on first install"
 
