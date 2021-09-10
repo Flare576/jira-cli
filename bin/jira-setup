@@ -1,0 +1,67 @@
+#!/bin/sh
+# Create a ~/.jira.d folder, link the specific files from flare576/scripts/jira-cli
+# This allows other files (such as cookies.js and .jira.issue) to persist through upgrades
+version=2
+usage="$(basename $0)
+Run to create a link between ~/.jira.d and the templates/config from scripts/flare576/jira-cli. Only neds to be run on first install"
+
+while getopts ':dvqh' option; do
+  case "$option" in
+    d) delete="true"
+      ;;
+    h) echo "$usage"
+      exit
+      ;;
+    q) quick="true"
+      ;;
+    v) echo "version $version"
+      exit
+      ;;
+  esac
+done
+shift $((OPTIND -1))
+
+local_jira="$HOME/.jira.d"
+jirad="${0%/*/*}/lib/.jira.d"
+
+if ! [ -d "$local_jira" ]; then
+  rm -rf "$local_jira" &> /dev/null
+  mkdir -p "$local_jira" &> /dev/null
+fi
+
+rm -rf "$local_jira/templates" &> /dev/null
+rm -rf "$local_jira/config.yml" &> /dev/null
+
+if [ "$delete" != "true" ]; then
+  ln -sf "$jirad/templates" "$local_jira/templates"
+  ln -sf "$jirad/config.yml" "$local_jira/config.yml"
+  touch ${HOME}/.jira.d/.jira.issue
+fi
+
+if [ "$quick" != "true" ]; then
+  read -p "What is your base Jira URL? " url
+  read -p "What is your Login? " email
+  read -p "What is your shortname? (blank for same as Login) " shortuser
+  read -s -p "What is your Jira API Token (https://id.atlassian.com/manage/api-tokens)? " api_token
+  echo
+  read -p "What Jira Project do you normally work on? " proj
+  read -p "What do you want to prefix your branches with (usually first name) " prefix
+
+  if [ -z $shortuser ] ; then
+    short=email
+  fi
+  url=$(echo $url | sed 's/https:\/\///')
+
+  config="${HOME}/.jira.d/.doNotCommit.jira"
+
+  cat<<END > ${config}
+export JIRA_API_TOKEN=${api_token}
+export JIRA_S_ENDPOINT=${url}
+export JIRA_S_PROJECT=${proj}
+export JIRA_S_LOGIN=${email}
+export JIRA_S_PREFIX=${prefix}
+export JIRA_S_USER=${shortuser}
+END
+
+fi
+  

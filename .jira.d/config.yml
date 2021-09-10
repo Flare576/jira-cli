@@ -1,10 +1,12 @@
 #!/bin/bash
-config_version=0.8.0
-issueFile="${HOME}/.jira.d/.jira.issue"
-echo "ISSUE_FILE: ${issueFile}"
-issue=$(head -n 1 $issueFile)
-echo "issue: ${issue}"
+source "${HOME}/.jira.d/.doNotCommit.jira"
 
+config_version=8
+issueFile="${HOME}/.jira.d/.jira.issue"
+issue=$(head -n 1 $issueFile)
+
+echo "ISSUE_FILE: ${issueFile}"
+echo "issue: ${issue}"
 echo "endpoint: https://${JIRA_S_ENDPOINT}"
 echo "project: ${JIRA_S_PROJECT}"
 echo "login: ${JIRA_S_LOGIN}"
@@ -24,6 +26,7 @@ fi
 
 cat<<END
 authentication-method: $method
+password-source: keyring
 custom-commands:
   - name: workon
     aliases: ['w']
@@ -276,3 +279,4 @@ custom-commands:
       echo "I actually have no args... {{args}}, or options {{options}}"
 END
 
+# vim: ft=sh
