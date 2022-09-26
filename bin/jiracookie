@@ -1,15 +1,18 @@
-#!/bin/sh # START Boilerplate - see https://github.com/Flare576/scripts/tree/main/js
+#!/bin/sh
 ":" //;NODE_PATH=$(npm -g root) exec node -- "$0" "$@"
-const t=require("module"),e=t.prototype.require;t.prototype.require=function(n){const{execSync:r,spawnSync:s}=e("child_process");var c="--fsl";try{return e.apply(this,arguments)}catch(t){console.log(`Installing ${n}`);const{argv:i,exit:a,cwd:p}=process;r(`npm -g install ${n}`,{encoding:"utf8"});var o=i.length;2<o&&i[o-1]===c&&a(42),i.shift();var l=i.shift();i.push(c);let e=null;for(;null===e||42===e;)e=s(l,i,{cwd:p(),detached:!0,stdio:"inherit"}),e=e.status;a()}}; // END Boilerplate
+const t=require("module"),e=t.prototype.require;t.prototype.require=function(n){const{execSync:r,spawnSync:s}=e("child_process");var c="--fsl";try{return e.apply(this,arguments)}catch(t){console.log(`Installing ${n}`);const{argv:i,exit:a,cwd:p}=process;r(`npm -g install ${n}`,{encoding:"utf8"});var o=i.length;2<o&&i[o-1]===c&&a(42),i.shift();var l=i.shift();i.push(c);let e=null;for(;null===e||42===e;)e=s(l,i,{cwd:p(),detached:!0,stdio:"inherit"}),e=e.status;a()}};
+// End Boilerplate - see https://github.com/Flare576/newScript
 
-const version = '3'
+const version = '0.0.4'
 const usage = `Takes the cookies from a working xhr call in browser and sets up hosted Jira instances.
 BE SURE TO WRAP THE COOKIE IN QUOTES!`;
 const argv = require('yargs')
+  .strict()
   .usage('$0 <cookies>', usage, (yargs) => {
     yargs.positional('cookies', { describe: "Cookie from xhr Request headers" })
   })
   .version(version)
+  .option('fsl', { hidden: true, type: 'boolean' }) // Allow seemless dependency loading
   .alias('help', 'h')
   .example( 'jiraCookie "atlassian.xsrf.token=blah; JSESSIONID=blah; SESSIONCOOKIE=SessionCookie; LOGOUTCOOKIE=blah; SAMLCOOKIE=blah"')
   .argv;
