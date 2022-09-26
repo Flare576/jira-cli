@@ -1,6 +1,7 @@
 #!/bin/bash
 source "${HOME}/.jira.d/.doNotCommit.jira"
 
+# Releases are <setup>.<cookie>.<config>, not semver
 config_version=8
 issueFile="${HOME}/.jira.d/.jira.issue"
 issue=$(head -n 1 $issueFile)
