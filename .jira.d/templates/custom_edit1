@@ -14,10 +14,10 @@ fields:
     - name: {{ .name }}{{end}}{{end}}{{end}}
 {{- if .meta.fields.assignee }}
   assignee:
-    name: {{ or .fields.assignee.name}}{{end}}
+    name: {{ or .fields.assignee.displayName}}{{end}}
 {{- if .meta.fields.reporter}}
   reporter:
-    name: {{ if .overrides.reporter }}{{ .overrides.reporter }}{{else if .fields.reporter}}{{ .fields.reporter.name }}{{end}}{{end}}
+    name: {{ if .overrides.reporter }}{{ .overrides.reporter }}{{else if .fields.reporter}}{{ .fields.reporter.displayName }}{{end}}{{end}}
 {{- if .meta.fields.customfield_10110}}
   # watchers
   customfield_10110: {{ range .fields.customfield_10110 }}

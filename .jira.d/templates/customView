@@ -17,14 +17,14 @@ components: {{ range .fields.components }}{{ .name }} {{end}}
 issuetype: {{ .fields.issuetype.name }}
 {{end -}}
 {{if .fields.assignee -}}
-assignee: {{ .fields.assignee.name }}
+assignee: {{ .fields.assignee.displayName }}
 {{end -}}
 {{if .fields.customfield_19359 -}}
-reviewer: {{ .fields.customfield_19359.name }}
+reviewer: {{ .fields.customfield_19359.displayName }}
 {{end -}}
-reporter: {{ if .fields.reporter }}{{ .fields.reporter.name }}{{end}}
+reporter: {{ if .fields.reporter }}{{ .fields.reporter.displayName }}{{end}}
 {{if .fields.customfield_10110 -}}
-watchers: {{ range .fields.customfield_10110 }}{{ .name }} {{end}}
+watchers: {{ range .fields.customfield_10110 }}{{ .displayName }} {{end}}
 {{end -}}
 {{if .fields.issuelinks -}}
 blockers: {{ range .fields.issuelinks }}{{if .outwardIssue}}{{ .outwardIssue.key }}[{{.outwardIssue.fields.status.name}}]{{end}}{{end}}
@@ -43,7 +43,7 @@ description: |
   {{ or .fields.description "" | indent 2 }}
 {{if .fields.comment.comments}}
 comments:
-{{ range .fields.comment.comments }}  - | # {{.author.name}}, {{.created | age}} ago
+{{ range .fields.comment.comments }}  - | # {{.author.displayName}}, {{.created | age}} ago
     {{ or .body "" | indent 4}}
 {{end}}
 {{end -}}

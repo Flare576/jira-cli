@@ -2,7 +2,7 @@
 source "${HOME}/.jira.d/.doNotCommit.jira"
 
 # Releases are <setup>.<cookie>.<config>, not semver
-config_version=8
+config_version=9
 issueFile="${HOME}/.jira.d/.jira.issue"
 issue=$(head -n 1 $issueFile)
 
@@ -269,8 +269,8 @@ custom-commands:
     help: Set the cookie used to talk to a hosted Jira instance (inspect network call)
     script: jiraCookie '{{args.COOKIE}}'
   - name: setup
-    help: Calls the dotfiles setupJira file
-    script: $HOME/dotfiles/setup/jira.sh
+    help: Calls this project's setup script
+    script: jira-setup
   - name: test
     help: prints out Jira-related env vars avaialable during run
     script: |
